@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
-import trackRouter from "../routes/TrackRoutes";
+import trackRouter from "./routes/TrackRoutes";
+import { initializeDatabase } from "./config/database";
 
 const app = express();
 app.use(express.json());
@@ -64,6 +65,11 @@ app.get("/products", (request: Request, response: Response) => {
 
 app.use("/api/v1", trackRouter);
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+initializeDatabase().then(() => {
+  app.listen(port, () => {
+    console.log(`server is running on http://localhost:${port}`);
+  })
+}).catch((err) => {
+  console.log("Failed to initialize database: ", err);
+  process.exit(1);
 });
