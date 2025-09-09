@@ -1,25 +1,36 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm"
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  Index,
+} from "typeorm";
 
 @Entity({ name: "tracks" })
 export class Track {
-    @PrimaryGeneratedColumn("uuid")
-    id!: number;
+  @PrimaryGeneratedColumn("uuid")
+  id!: string;
 
-    @Column({ type: "varchar" })
-    name!: string;
+  @Index({ unique: true })
+  @Column({ type: "varchar", length: 255 })
+  slug!: string;
 
-    @Column({ type: "varchar" })
-    description!: string;
+  @Column({ type: "varchar", length: 255 })
+  name!: string;
 
-    @Column({ type: "varchar" })
-    slug!: string;
+  @Column({ type: "text" })
+  description!: string;
 
-    @Column()
-    isActive?: boolean;
+  @Column({ type: "boolean", default: true })
+  isActive!: boolean;
 
-    @Column()
-    isNew?: boolean;
+  @Column({ type: "boolean", nullable: true })
+  isNew?: boolean;
 
-    @CreateDateColumn()
-    createdAt!: Date;
+  @CreateDateColumn()
+  createdAt!: Date;
+
+  @UpdateDateColumn()
+  updatedAt!: Date;
 }

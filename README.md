@@ -36,11 +36,7 @@ Edit `tsconfig.json` file as below:
 Edit `script` inside `package.json`
 
 ```json
-"scripts": {
-    "start": "node dist/app.js",
-    "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
-},
+
 ```
 
 Build using `npm run build`
